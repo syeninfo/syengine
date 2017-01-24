@@ -3,6 +3,6 @@ Javascript Visual Novel engine
 
 # scripting
 
-## set
+## #set
 
 set value of game objec.
