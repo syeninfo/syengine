@@ -78,7 +78,7 @@ exmaple:
 
 Stop script execution until space or mouse (next button) pressed, or selection (mouse or buttons 1,2,3,4)
 
-If use *noclear* to continue dialog without clear
+If use *noclear* to continue dialog without clear old message
 
 **#pause**
 
