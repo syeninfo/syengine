@@ -64,12 +64,14 @@ Goto script lable
 
 Ask for select in dialog and goto label. Select begins after pause command.
 
-** #select lableName "message"**
+**#select lableName "message"**
 
 exmaple:
 
  #select begin "Repeat"
+ 
  #select next "Continue"
+ 
  #pause
 
 ## #pause
