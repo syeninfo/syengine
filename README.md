@@ -5,11 +5,11 @@ Javascript Visual Novel engine
 
 ## #set
 
-Set value of game objec. If game object not exists, create new.
+Set game objecе value. If game object is not exists, create new.
 
- #set name value
+**#set name value**
  
- #set name fild: value fild: value ...
+**#set name fild: value fild: value ...**
 
 examples:
 
