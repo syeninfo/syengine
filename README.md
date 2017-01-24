@@ -7,9 +7,9 @@ Javascript Visual Novel engine
 
 Set game objecе value. If game object is not exists, create new.
 
-**#set name value**
+**#set gameObjectName value** (same as #set gameObjectName value: value)
  
-**#set name fild: value field: value ...**
+**#set gameObjectName fild: value field: value ...**
 
 examples:
 
@@ -32,27 +32,31 @@ game object fields:
 
 Show game object on the game screen, same as **#set object visible: ture**
 
-**#show varible_name**
+**#show varibleName**
 
 ## #hide
 
 Hide game object from game screen, same as **#set object visible: false**
 
-**#hide varible_name**
+**#hide varibleName**
 
 ## #background
+
+Load background image to the game screen background
+
+**#backgorund imageFile**
 
 ## #lable
 
 Define script label
 
-**#label label_name**
+**#label labelName**
 
 ## #goto
 
 Goto script lable
 
-**#goto label_name**
+**#goto labelMame**
 
 ## #if
 
@@ -82,4 +86,4 @@ If use *noclear* to continue dialog without clear
 
 Load and run script file
 
-**#run script_file**
+**#run scriptFile**
