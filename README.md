@@ -19,7 +19,7 @@ examples:
 
 If game object has image field, it can be shown on game screen by setting visible: true
 
-game object fields
+game object fields:
 
 * value: value
 * image: image file path
@@ -27,3 +27,15 @@ game object fields
 * x: horizontal image position
 * y: vertical image position
 * opaque: image transperancy
+
+## #show
+
+Show game object on the game screen, same as **#set object visible: ture**
+
+**#show varible_name**
+
+## #hide
+
+Hide game object from game screen, same as **#set object visible: false**
+
+**#hide varible_name**
