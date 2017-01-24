@@ -60,6 +60,21 @@ Goto script lable
 
 ## #if
 
+Only one condition per sting
+Value's can by game object, number or text
+If value is game object, use value field
+
+**#if value1 sign value2 labelName**
+
+signs
+
+* ==
+* !=
+* >
+* <
+* >=
+* <=
+
 ## #select
 
 Ask for select in dialog and goto label. Select begins after pause command.
