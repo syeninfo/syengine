@@ -1,0 +1,11 @@
+#set goddness image: "img\girl.png" x: 50
+#set playerName "Игрок"
+`
+#label begin
+`
+#show goddness
+Привет {playerName}, меня зовут Скриптия
+Я богиня-няша VN движка SyEngine
+#pause
+`
+#label end
