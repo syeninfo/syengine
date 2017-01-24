@@ -39,3 +39,47 @@ Show game object on the game screen, same as **#set object visible: ture**
 Hide game object from game screen, same as **#set object visible: false**
 
 **#hide varible_name**
+
+## #background
+
+## #lable
+
+Define script label
+
+**#label label_name**
+
+## #goto
+
+Goto script lable
+
+**#goto label_name**
+
+## #if
+
+## #select
+
+Ask for select in dialog and goto label. Select begins after pause command.
+
+** #select lableName "message"**
+
+exmaple:
+
+ #select begin "Repeat"
+ #select next "Continue"
+ #pause
+
+## #pause
+
+Stop script execution until space or mouse (next button) pressed, or selection (mouse or buttons 1,2,3,4)
+
+If use *noclear* to continue dialog without clear
+
+**#pause**
+
+**#pause noclear**
+
+## #run
+
+Load and run script file
+
+**#run script_file**
