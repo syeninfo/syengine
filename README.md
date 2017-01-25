@@ -3,6 +3,31 @@ Javascript Visual Novel engine
 
 # scripting
 
+## \` comments
+
+Use \` for comments
+
+exmaple:
+
+```
+\` this is comment
+Hello world
+```
+
+## Print text
+
+Any string strated not from # or \` will be printed to dialog window
+
+Use \# to # at begin of string
+
+Use {varibleName} to type value of the game object
+
+```
+#set playerNmae "Player"
+Hello {playerName}
+#pause
+```
+
 ## #set
 
 Set game objecе value. If game object is not exists, create new.
