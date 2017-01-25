@@ -14,7 +14,7 @@ exmaple:
 Hello world
 ```
 
-## Print text
+## Print text to dialog
 
 Any string strated not from # or \` will be printed to dialog window
 
