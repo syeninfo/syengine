@@ -63,8 +63,8 @@ Use dialog to show dialog window
 
 example
 ```
-#hide player
-#hide dialog
+#show player
+#show dialog
 ```
 
 ## #hide
