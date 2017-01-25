@@ -10,7 +10,7 @@ Use \` for comments
 exmaple:
 
 ```
-\` this is comment
+`this is comment
 Hello world
 ```
 
