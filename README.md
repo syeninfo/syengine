@@ -32,13 +32,29 @@ game object fields:
 
 Show game object on the game screen, same as **#set object visible: ture**
 
+Use dialog to show dialog window
+
 **#show varibleName**
+
+example
+```
+#hide player
+#hide dialog
+```
 
 ## #hide
 
 Hide game object from game screen, same as **#set object visible: false**
 
+Use dialog to hide dialog window
+
 **#hide varibleName**
+
+example:
+```
+#hide player
+#hide dialog
+```
 
 ## #background
 
