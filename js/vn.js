@@ -54,7 +54,30 @@ class GameObject {
 		this.name = name;
 	}
 
+	toBoolean(value) {
+		switch (value.toString()){
+			case "true":
+			case "1":
+				return true;
+			default:
+				return false;
+		}
+	}
+
 	setProperty(propertyName, value) {
+		if (this.name == "dialog") {
+			switch(propertyName) {
+				case "visible":
+					var v = this.toBoolean(value);
+					this.parent.dialog.element.style.display = v ? "block" : "none";
+					this[propertyName] = v;
+					return;
+				default:
+					console.log("script error: property " + propertyName + " is unsupported");
+					return;
+			}
+			this[propertyName] = value;
+		}
 		// set property value
 		switch(propertyName) {
 			case "image":
@@ -84,10 +107,12 @@ class GameObject {
 				}
 				break;
 			case "visible":
+				var v = this.toBoolean(value);
 				if (this.image != undefined) {
-					this.image.style.display = value == "false" ? "none" : "block";
+					this.image.style.display = v ? "block" : "none";
 				}
-				break;
+				this[propertyName] = v;
+				return;
 			case "opacity":
 				if (this.image != undefined) {
 					this.image.style.opacity = value;
@@ -315,9 +340,8 @@ class Game {
 		if (this.clearFlag) {
 			this.clearFlag = false;
 			this.dialog.element.innerHTML = t;
-			return;
 		} else {
-			this.dialog.element.innerHTML += "<br>" + t;
+			this.dialog.element.innerHTML += "<br>" + t
 		}
 	}
 
@@ -453,24 +477,17 @@ class Game {
 									break;
 								}
 								let obj = this.getGameObject(cmd[1].value);
-								obj["visible"] = true;
-								if (obj.image) {
-									obj.image.style.display = "block";
-								}
+								obj.setProperty("visible", true);
 							}
 							break;
 						case "#hide":
 							if (cmd[1] != undefined) {
 								if (cmd[1].value == "dialog") {
-									console.log(this.dialog);
 									this.dialog.element.style.display = "none";
 									break;
 								}
 								let obj = this.getGameObject(cmd[1].value);
-								obj["visible"] = false;
-								if (obj.image) {
-									obj.image.style.display = "none";
-								}
+								obj.setProperty("visible", false);
 							}
 							break;
 						case "#select":

@@ -8,10 +8,14 @@
 Я богиня-няша VN движка SyEngine
 #pause
 `
-#hide dialog
+#set dialog visible: false
+`#set goddness visible: false
+#hide goddness
 #pause
 `
 #show dialog
 #pause
 `
+Продолжем
+#pause
 #label end
