@@ -12,10 +12,10 @@ Set game objecе value. If game object is not exists, create new.
 **#set gameObjectName fild: value field: value ...**
 
 examples:
-
- #set playerName "Player"
- 
- #set player image: "img/player.png"
+```
+#set playerName "Player"
+#set player image: "img/player.png"
+```
 
 If game object has image field, it can be shown on game screen by setting visible: true
 
@@ -82,12 +82,14 @@ Ask for select in dialog and goto label. Select begins after pause command.
 **#select lableName "message"**
 
 exmaple:
-
- #select begin "Repeat"
- 
- #select next "Continue"
- 
- #pause
+```
+#label begin
+Select
+#select begin "Repeat"
+#select next "Continue"
+#pause
+#lable next
+```
 
 ## #pause
 
@@ -104,3 +106,7 @@ If use *noclear* to continue dialog without clear old message
 Load and run script file
 
 **#run scriptFile**
+
+## #end
+
+stop running script
