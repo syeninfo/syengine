@@ -448,6 +448,10 @@ class Game {
 							break;
 						case "#show":
 							if (cmd[1] != undefined) {
+								if (cmd[1].value == "dialog") {
+									this.dialog.element.style.display = "block";
+									break;
+								}
 								let obj = this.getGameObject(cmd[1].value);
 								obj["visible"] = true;
 								if (obj.image) {
@@ -457,6 +461,11 @@ class Game {
 							break;
 						case "#hide":
 							if (cmd[1] != undefined) {
+								if (cmd[1].value == "dialog") {
+									console.log(this.dialog);
+									this.dialog.element.style.display = "none";
+									break;
+								}
 								let obj = this.getGameObject(cmd[1].value);
 								obj["visible"] = false;
 								if (obj.image) {
