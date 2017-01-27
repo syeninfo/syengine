@@ -1,3 +1,240 @@
+class InputDialog {
+
+	constructor(parent, config = {}) {
+
+		this.parent = parent;
+
+		this.visible = false;
+
+		// element
+
+		this.element = document.createElement("div");
+
+		var width = config.width != undefined ? config.width : 300;
+
+		var parentWidth = parseFloat(parent.element.style.width);
+
+		this.element.style.left = config.x != undefined ? config.x + "px" : ((parentWidth - width) / 2) + "px";
+		this.element.style.bottom = config.y != undefined ? config.y + "px" : "300px";
+
+		this.element.style.width = width + "px";
+		this.element.style.height = config.height != undefined ? config.height + "px" : "110px";
+
+		this.element.style.color = config.color || parent.dialog.element.style.color;
+		this.element.style.fontSize = config.fontSize != undefined ? config.fontSize + "px" : parent.dialog.element.style.fontSize;
+		this.element.style.fontFamily = config.fontFamily || parent.dialog.element.style.fontFamily;
+
+		this.element.style.position = "absolute";
+
+		this.element.style.backgroundColor = config.backgroundColor || parent.dialog.element.style.backgroundColor;
+
+		this.element.style.display = "none";
+
+		this.parent.element.appendChild(this.element);
+
+		// text element
+
+		var textElementConfig = config.text || {};
+
+		this.textElement = document.createElement("div");
+		this.element.appendChild(this.textElement);
+
+		this.textElement.style.position = "absolute";
+
+		this.textElement.style.left = textElementConfig.x != undefined ? textElementConfig. x + "px" : "20px";
+		this.textElement.style.bottom = textElementConfig.y != undefined ? textElementConfig.y + "px" : "70px";
+
+		this.textElement.innerHTML = "Input name";
+
+		// input element
+
+		var inputElementConfig = config.input || {};
+
+		this.inputElement = document.createElement("input");
+		this.element.appendChild(this.inputElement);
+
+		this.inputElement.style.position = "absolute";
+		this.inputElement.style.left = inputElementConfig.x != undefined ? inputElementConfig.x + "px" : "20px";
+		this.inputElement.style.bottom = inputElementConfig.y != undefined ? inputElementConfig.y + "px" : "20px";
+		this.inputElement.style.width = inputElementConfig.width != undefined ? (inputElementConfig.width - 10) + "px" : "250px";
+		this.inputElement.style.height = inputElementConfig.height != undefined ? (inputElementConfig.height - 10) + "px" : "20px";
+		this.inputElement.style.fontSize = inputElementConfig.fontSize != undefined ? inputElementConfig.fontSize + "px" : "20px";
+		this.inputElement.style.fontFamily = inputElementConfig.fontFamily != undefined ? inputElementConfig.fontFamily : "arial";
+
+		this.inputElement.style.marginLeft = "0px";
+		this.inputElement.style.marginRight = "0px";
+		this.inputElement.style.marginBottom = "0px";
+		this.inputElement.style.marginTop = "0px";
+		this.inputElement.style.paddingLeft = "5px";
+		this.inputElement.style.paddingRight = "5px";
+		this.inputElement.style.paddingBottom = "5px";
+		this.inputElement.style.paddingTop = "5px";
+		this.inputElement.style.borderWidth = "0px";
+
+	}
+
+	show(text) {
+		this.visible = true;
+		this.textElement.innerHTML = text;
+		this.element.style.display = "block";
+	}
+
+	hide() {
+		this.onenter(this.inputElement.value);
+		this.visible = false;
+		this.element.style.display = "none";
+		this.parent.play();
+	}
+
+	onenter(text) {
+	}
+
+}
+
+class Parser {
+
+	static getWord(string, beginPosition, callback) {
+		// разделители значений, их выпиливаем отдельно
+		// var dividers = [":", ","];
+		var dividers = [":"];
+		var quoteFlags = ["\"", "'"];
+		var word = new String();
+		var findWord = true;
+		var quoteFlag = false;
+
+		for (var i = beginPosition; i < string.length; i++) {
+			if (quoteFlag) {
+				if (string[i] == "\\") {
+					if (quoteFlags.indexOf(string[i + 1]) != -1) {
+						word += string[i + 1];
+						i++;
+						continue;
+					}
+				}
+				if (quoteFlags.indexOf(string[i]) != -1) {
+					break;
+				}
+				// если конец строки но кавычки не закрыты, в теории ошибка
+				// но мы будем считать это концом строки
+				// хотя в последствии возможно както прориагрием
+				if (i == string.length - 1) {
+					word += string[i];
+					break;
+				}
+				word += string[i];
+				continue;
+			}
+			if (findWord) {
+				if ((string[i] == " ") || (string[i] == "\t")) {
+					continue;
+				} else {
+					// если слово начинается с разделителя (: или ,)
+					// то отрубаем этот разделитель
+					if (dividers.indexOf(string[i]) != -1) {
+						word = string[i];
+						break;
+					}
+					findWord = false;
+					// ?? возможно это ненадо
+					if (quoteFlags.indexOf(string[i]) != -1) {
+						quoteFlag = true;
+						continue;
+					}
+				}
+			} else {
+				// вырубаем двоеточия и запяты отдельно
+				// так как возможны конструкции (x: 10)
+				// и двоеточие приклеится к x а нам это ненадо
+				if (dividers.indexOf(string[i]) != -1) {
+					i--;
+					break;
+				}
+				// если кавычки приклеены к слову (echo"hello)
+				// в теоррии ошибка, такой синтаксис недопустим хотя
+				// мы его пропустим но разрежем
+				if (quoteFlags.indexOf(string[i]) != -1) {
+					break;
+				}
+				if ((string[i] == " ") || (string[i] == "\t")) {
+					break;
+				}
+				if (i == string.length - 1) {
+					word += string[i];
+					break;
+				}
+			}
+			word += string[i];
+		}
+		callback({value: word, quoteFlag: quoteFlag}, i + 1);
+	}
+
+	static parseString(string) {
+		var stringIndex = 0;
+		var result = [];
+		var firstWord = true;
+		while (stringIndex < string.length) {
+			Parser.getWord(string, stringIndex, function(word, nextCharIndex) {
+				// смотри начало первого слова
+				// если # - то это команда
+				// ` - комментарий, возвращается undefined
+				// иначе строка выводимого текста, строка возвращается неизмененной
+				if (firstWord) {
+					//делаем возможным задать первым символом строки ` или #
+					//при помощи обратного слеша
+					//правило действительно только для первого вхождения символа
+					if (word.value[0] == "\\" && (word.value[1] == "#" || word.value[1] == "`")) {
+						var s = "";
+						var skipOnce = true;
+						for (var i = 0; i < string.length; i++) {
+							if (skipOnce) {
+								if (string[i] == "\\") {
+									skipOnce = false;
+									continue;
+								}
+							}
+							s += string[i];
+						}
+						result.push({value: ">"});
+						result.push({value: s});
+						stringIndex = string.length;
+						return result;
+					} else if (word.value[0] == "#") {
+						firstWord = false;
+					} else if (word.value[0] == "`")  {
+						stringIndex = string.length;
+						return undefined;
+					} else {
+						result.push({value: ">"});
+						result.push({value: string});
+						stringIndex = string.length;
+						return result;
+					}
+				}
+
+				if (!isNaN(word.value)) {
+					word.value = Number(word.value);
+				}
+
+				result.push(word);
+				stringIndex = nextCharIndex;
+			})
+		}
+		return result.length != 0 ? result : undefined;
+	}
+
+	static parse(text) {
+		var result = [];
+		for (var i = 0; i < text.length; i++) {
+			var p = Parser.parseString(text[i]);
+			if (p != undefined) {
+				result.push(p);
+			}
+		}
+		return result;
+	}
+
+}
+
 class SelectObject {
 
 	constructor (parent, label, text, param = {}) {
@@ -28,6 +265,9 @@ class SelectObject {
 		this.element.style.cursor = "pointer";
 
 		this.element.onclick = (event) => {
+			if (this.parent.inputDialog.visible) {
+				return;
+			}
 			event.stopPropagation();
 			this.parent.goto(this.label);
 			this.parent.play();
@@ -73,7 +313,7 @@ class GameObject {
 					this[propertyName] = v;
 					return;
 				default:
-					console.log("script error: property " + propertyName + " is unsupported");
+					console.log("script error: property " + propertyName + " is unsupported for dialog");
 					return;
 			}
 			this[propertyName] = value;
@@ -231,11 +471,21 @@ class Game {
 		this.selectObjects = [];
 
 		this.element.onclick = (event) => {
+			if (this.inputDialog.visible) {
+				return;
+			}
 			if (!this.selectFlag) {
 				this.play();
 			}
 		}
+
 		document.onkeydown = (event) => {
+			if (this.inputDialog.visible) {
+				if (event.key == "Enter") {
+					this.inputDialog.hide();
+				}
+				return;
+			}
 			if (this.selectFlag) {
 				for (var i = 0; i < this.selectKeyCodes.length; i++) {
 					if (this.selectKeyCodes[i] == event.code) {
@@ -251,7 +501,6 @@ class Game {
 				this.play();
 			}
 		}
-
 
 		var selectParam = param.dialog != undefined ? param.dialog.select != undefined ? param.dialog.select : {} : {};
 
@@ -292,6 +541,8 @@ class Game {
 				backgroundColor: selectParamHover.backgroundColor != undefined ? selectParamHover.backgroundColor : "#888",
 			}
 		};
+
+		this.inputDialog = new InputDialog(this, param.input);
 
 	}
 
@@ -390,6 +641,18 @@ class Game {
 			switch (marker) {
 				case "#":
 					switch (cmd[0].value) {
+						case "#input":
+							if ((cmd[1] == undefined) || (cmd[2] == undefined)) {
+								console.log("script error: use #input gameObject text");
+							} else {
+								var obj = this.getGameObject(cmd[1].value);
+								this.inputDialog.onenter = function(text) {
+									obj.setProperty("value", text);
+								}
+								this.inputDialog.show(cmd[2].value);
+								this.pauseFlag = true;
+							}
+							break;
 						case "#end":
 							this.programPosition = this.program.length;
 							break;

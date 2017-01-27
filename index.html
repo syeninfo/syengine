@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<meta charset = "utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<style>
 
 			html, body {
-				width: 100%;
-				height: 100%;
+				width: 640px;
+				height: 480px;
 			}
 
 			body {
@@ -15,7 +16,6 @@
 			}
 
 		</style>
-		<script src = "js/parser.js"></script>
 		<script src = "js/vn.js"></script>
 	</head>
 	<body>
@@ -24,8 +24,30 @@
 				name: "My VN game",
 				width: 640,
 				height: 480,
-				backgroundColor: "#112",
+				backgroundColor: "#444",
 				//backgroundImage: "img/background.jpg",
+				input: {
+					//x: 20,
+					//y: 340,
+					width: 300,
+					height: 110,
+					color: "#FFF",
+					fontSize: 20,
+					fontFamily: "arial",
+					backgroundColor: "rgba(0, 0, 0, 0.8)",
+					text: {
+						x: 20,
+						y: 70
+					},
+					input: {
+						x: 20,
+						y: 20,
+						width: 260,
+						height: 30,
+						fontSize: 20,
+						fontFamily: "arial"
+					}
+				},
 				dialog: {
 					visible: true,
 					x: 0,

@@ -3,6 +3,9 @@
 `
 #label begin
 `
+Введите ваше имя
+#input playerName "Введите имя"
+`
 #show goddness
 Привет {playerName}, меня зовут Скриптия
 Я богиня-няша VN движка SyEngine
@@ -16,6 +19,7 @@
 #show dialog
 #pause
 `
-Продолжем
+#show goddness
+Продолжим
 #pause
 #label end
