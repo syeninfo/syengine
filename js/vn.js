@@ -651,6 +651,7 @@ class Game {
 								}
 								this.inputDialog.show(cmd[2].value);
 								this.pauseFlag = true;
+								this.clearFlag = true;
 							}
 							break;
 						case "#end":
