@@ -165,4 +165,5 @@ example
 What is your name
 input playerName "Your name"
 Glad to meet you {playerName}
+#pause
 ```
