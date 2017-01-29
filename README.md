@@ -154,8 +154,15 @@ stop running script
 
 ## #input
 
-Input value to varible. 
+Input value to gameObject 
 
 Show input dialog window, after input set clear dialog flag, like #pause
 
 **#input gameObject "text"**
+
+example
+```
+What is your name
+input playerName "Your name"
+Glad to meet you {playerName}
+```
