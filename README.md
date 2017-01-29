@@ -151,3 +151,11 @@ Load and run script file
 ## #end
 
 stop running script
+
+## #input
+
+Input value to varible. 
+
+Show input dialog window, after input set clear dialog flag, like #pause
+
+**#input gameObject "text"**
