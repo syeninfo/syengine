@@ -87,7 +87,7 @@ Load background image to the game screen background
 
 **#backgorund imageFile**
 
-## #lable
+## #label
 
 Define script label
 
@@ -95,7 +95,7 @@ Define script label
 
 ## #goto
 
-Goto script lable
+Goto script label
 
 **#goto labelMame**
 
@@ -136,7 +136,7 @@ Select
 
 Stop script execution until space or mouse (next button) pressed, or selection (mouse or buttons 1,2,3,4)
 
-If use *noclear* to continue dialog without clear old message
+Use *noclear* to continue dialog without clear old message
 
 **#pause**
 
